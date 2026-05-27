@@ -12,5 +12,5 @@ class Student(
 
     val name: String,
 
-    val email: String?,
+    val email: String,
 )
