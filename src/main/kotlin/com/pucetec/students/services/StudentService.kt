@@ -19,7 +19,7 @@ class StudentService(
 
         logger.info("Creating student ${request.name}")
         logger.info("validating request ${request.name}.... checking email")
-        val emailExists = studentRepository.findByEmail(request.email)
+        val emailExists = studentRepository.existsByEmail(request.email)
         if(emailExists) {
             throw RuntimeException("Email already exists")
         }
