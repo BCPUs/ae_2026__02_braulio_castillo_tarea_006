@@ -1,33 +1,29 @@
 package com.pucetec.students.controllers
 
-import com.pucetec.students.dto.StudentRequest
-import com.pucetec.students.dto.StudentResponse
+import com.pucetec.students.dto.*
 import com.pucetec.students.services.StudentService
-import org.slf4j.LoggerFactory
+import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
 @RestController
-class StudentController(
-    val studentService: StudentService
-) {
+@RequestMapping("/api/students")
+class StudentController(private val studentService: StudentService) {
 
-    private val logger = LoggerFactory.getLogger(StudentController::class.java)
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    fun createStudent(@RequestBody request: StudentRequest): StudentResponse = studentService.createStudent(request)
 
-    @PostMapping("/api/students")
-    fun createStudent(
-        @RequestBody request: StudentRequest
-    ): StudentResponse {
+    @GetMapping
+    fun getAllStudents(): List<StudentResponse> = studentService.getAllStudents()
 
-        logger.info("Creating a new student ${request.name}")
+    @GetMapping("/{id}")
+    fun getStudentById(@PathVariable id: Long): StudentResponse = studentService.getStudentById(id)
 
-        return studentService.createStudent(request)
-    }
+    @PutMapping("/{id}")
+    fun updateStudent(@PathVariable id: Long, @RequestBody request: StudentRequest): StudentResponse =
+        studentService.updateStudent(id, request)
 
-    @GetMapping("/api/students")
-    fun getAllStudents(): List<StudentResponse> {
-
-        logger.info("Getting all student list")
-
-        return studentService.getAllStudents()
-    }
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    fun deleteStudent(@PathVariable id: Long) = studentService.deleteStudent(id)
 }

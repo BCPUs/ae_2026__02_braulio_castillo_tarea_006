@@ -6,15 +6,15 @@ import com.pucetec.students.entities.Student
 
 fun StudentRequest.toEntity(): Student {
     return Student (
-        name = name,
-        email = email,
+        name = this.name,
+        email = this.email,
     )
 }
 
 fun Student.toResponse(): StudentResponse {
     return StudentResponse(
-        id = id,
-        name = name,
-        email = email,
+        id = this.id,
+        name = this.name,
+        email = this.email,
     )
 }

@@ -1,0 +1,26 @@
+package com.pucetec.students.entities
+
+import jakarta.persistence.*
+import java.time.LocalDateTime
+
+@Entity
+@Table(name = "enrollments")
+class Enrollment (
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long = 0L,
+
+    @Column(name = "created_at")
+
+    val createdAt: LocalDateTime = LocalDateTime.now(),
+
+    val status: String = "",
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    val subject: Subject,
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    val student: Student,
+
+    )

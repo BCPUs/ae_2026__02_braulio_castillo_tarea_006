@@ -1,4 +1,7 @@
 package com.pucetec.students.dto
+
+import com.pucetec.students.entities.Student
+
 /**
  * {name: ana, email: ana@puce.com}
  *
@@ -17,3 +20,6 @@ data class StudentResponse(
     val name: String,
     val email: String,
 )
+
+fun StudentRequest.toEntity(): Student = Student(name = this.name, email = this.email)
+fun Student.toResponse(): StudentResponse = StudentResponse(id = this.id, name = this.name, email = this.email)
