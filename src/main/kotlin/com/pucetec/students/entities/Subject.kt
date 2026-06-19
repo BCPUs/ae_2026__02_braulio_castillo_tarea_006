@@ -10,16 +10,14 @@ class Subject(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0L,
 
-    val name: String="",
+    var name: String="",
 
-    val code: String = "",
+    var code: String = "",
 
     @ManyToOne(fetch = FetchType.LAZY)
-    val professor: Professor,
+    var professor: Professor,
 
     @OneToMany(mappedBy = "subject", cascade = [(CascadeType.ALL)], orphanRemoval = true)
-    val enrollments: MutableList<Enrollment> = mutableListOf(),
-
-
+    var enrollments: MutableList<Enrollment> = mutableListOf(),
 
 )

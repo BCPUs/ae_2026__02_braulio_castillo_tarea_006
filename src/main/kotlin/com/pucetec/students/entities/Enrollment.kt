@@ -13,14 +13,14 @@ class Enrollment (
 
     @Column(name = "created_at")
 
-    val createdAt: LocalDateTime = LocalDateTime.now(),
+    var createdAt: LocalDateTime = LocalDateTime.now(),
 
-    val status: String = "",
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    val subject: Subject,
+    var status: String = "",
 
     @ManyToOne(fetch = FetchType.LAZY)
-    val student: Student,
+    var subject: Subject,
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    var student: Student,
 
     )

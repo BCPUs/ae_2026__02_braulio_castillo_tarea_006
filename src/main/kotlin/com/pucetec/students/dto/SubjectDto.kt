@@ -14,13 +14,17 @@ data class SubjectResponse(
     val code: String,
     val professor: ProfessorResponse,
     val id: Long,
+)
 
-    )
+fun SubjectRequest.toEntity(professor: Professor): Subject = Subject(
+    name = this.name,
+    code = this.code,
+    professor = professor,
+)
 
-fun SubjectRequest.toEntity(professor: Professor): Subject = Subject(name = this.name, code = this.code, professor = professor)
 fun Subject.toResponse(): SubjectResponse = SubjectResponse(
     id = this.id,
     name = this.name,
     code = this.code,
-    professor = this.professor.toResponse()
+    professor = this.professor.toResponse(),
 )

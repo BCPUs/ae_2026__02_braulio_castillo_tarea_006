@@ -10,7 +10,7 @@ class Student(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0L,
 
-    val name: String,
+    var name: String,
 
-    val email: String,
+    var email: String,
 )

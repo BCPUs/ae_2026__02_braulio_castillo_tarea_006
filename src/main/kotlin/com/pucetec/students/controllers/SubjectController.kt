@@ -6,24 +6,48 @@ import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/api/subjects")
-class SubjectController(private val subjectService: SubjectService) {
+class SubjectController(
+    val subjectService: SubjectService
+) {
 
-    @PostMapping
+    @PostMapping("/api/subjects")
     @ResponseStatus(HttpStatus.CREATED)
-    fun createSubject(@RequestBody request: SubjectRequest): SubjectResponse = subjectService.createSubject(request)
+    fun createSubject(
+        @RequestBody request: SubjectRequest
+    ): SubjectResponse {
 
-    @GetMapping
-    fun getAllSubjects(): List<SubjectResponse> = subjectService.getAllSubjects()
+        return subjectService.createSubject(request)
+    }
 
-    @GetMapping("/{id}")
-    fun getSubjectById(@PathVariable id: Long): SubjectResponse = subjectService.getSubjectById(id)
+    @GetMapping("/api/subjects")
+    fun getAllSubjects(): List<SubjectResponse> {
 
-    @PutMapping("/{id}")
-    fun updateSubject(@PathVariable id: Long, @RequestBody request: SubjectRequest): SubjectResponse =
-        subjectService.updateSubject(id, request)
+        return subjectService.getAllSubjects()
+    }
 
-    @DeleteMapping("/{id}")
+    @GetMapping("/api/subjects/{id}")
+    fun getSubjectById(
+        @PathVariable id: Long
+    ): SubjectResponse {
+
+        return subjectService.getSubjectById(id)
+    }
+
+    @PutMapping("/api/subjects/{id}")
+    fun updateSubject(
+        @PathVariable id: Long,
+        @RequestBody request: SubjectRequest
+    ): SubjectResponse {
+
+        return subjectService.updateSubject(id, request)
+    }
+
+    @DeleteMapping("/api/subjects/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun deleteSubject(@PathVariable id: Long) = subjectService.deleteSubject(id)
+    fun deleteSubject(
+        @PathVariable id: Long
+    ) {
+
+        subjectService.deleteSubject(id)
+    }
 }

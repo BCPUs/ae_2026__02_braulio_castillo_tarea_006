@@ -2,8 +2,15 @@ package com.pucetec.students.dto
 
 import com.pucetec.students.entities.Enrollment
 
-data class EnrollmentRequest(val studentId: Long, val subjectId: Long)
-data class EnrollmentUpdateRequest(val status: String)
+
+data class EnrollmentRequest(
+    val studentId: Long, val subjectId: Long
+)
+
+data class EnrollmentUpdateRequest(
+    val status: String
+)
+
 data class EnrollmentResponse(
     val id: Long,
     val createdAt: String,
@@ -14,7 +21,7 @@ data class EnrollmentResponse(
 
 fun Enrollment.toResponse(): EnrollmentResponse = EnrollmentResponse(
     id = this.id,
-    createdAt = this.createdAt,
+    createdAt = this.createdAt.toString(),
     status = this.status,
     student = this.student.toResponse(),
     subject = this.subject.toResponse()

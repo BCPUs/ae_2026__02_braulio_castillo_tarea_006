@@ -10,12 +10,12 @@ class Professor (
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0L,
 
-    val name: String = "",
+    var name: String = "",
 
-    val email: String = "",
+    var email: String = "",
 
     //relacion que une, uno a muchos
     @OneToMany(mappedBy = "professor", cascade = [(CascadeType.ALL)], orphanRemoval = true)
 
-    val subjects: MutableList<Subject> = mutableListOf(),
+    var subjects: MutableList<Subject> = mutableListOf(),
 )

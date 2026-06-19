@@ -6,24 +6,48 @@ import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/api/enrollments")
-class EnrollmentController(private val enrollmentService: EnrollmentService) {
+class EnrollmentController(
+    val enrollmentService: EnrollmentService
+) {
 
-    @PostMapping
+    @PostMapping("/api/enrollments")
     @ResponseStatus(HttpStatus.CREATED)
-    fun createEnrollment(@RequestBody request: EnrollmentRequest): EnrollmentResponse = enrollmentService.createEnrollment(request)
+    fun createEnrollment(
+        @RequestBody request: EnrollmentRequest
+    ): EnrollmentResponse {
 
-    @GetMapping
-    fun getAllEnrollments(): List<EnrollmentResponse> = enrollmentService.getAllEnrollments()
+        return enrollmentService.createEnrollment(request)
+    }
 
-    @GetMapping("/{id}")
-    fun getEnrollmentById(@PathVariable id: Long): EnrollmentResponse = enrollmentService.getEnrollmentById(id)
+    @GetMapping("/api/enrollments")
+    fun getAllEnrollments(): List<EnrollmentResponse> {
 
-    @PutMapping("/{id}")
-    fun updateEnrollmentStatus(@PathVariable id: Long, @RequestBody request: EnrollmentUpdateRequest): EnrollmentResponse =
-        enrollmentService.updateEnrollmentStatus(id, request)
+        return enrollmentService.getAllEnrollments()
+    }
 
-    @DeleteMapping("/{id}")
+    @GetMapping("/api/enrollments/{id}")
+    fun getEnrollmentById(
+        @PathVariable id: Long
+    ): EnrollmentResponse {
+
+        return enrollmentService.getEnrollmentById(id)
+    }
+
+    @PutMapping("/api/enrollments/{id}")
+    fun updateEnrollmentStatus(
+        @PathVariable id: Long,
+        @RequestBody request: EnrollmentUpdateRequest
+    ): EnrollmentResponse {
+
+        return enrollmentService.updateEnrollmentStatus(id, request)
+    }
+
+    @DeleteMapping("/api/enrollments/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun deleteEnrollment(@PathVariable id: Long) = enrollmentService.deleteEnrollment(id)
+    fun deleteEnrollment(
+        @PathVariable id: Long
+    ) {
+
+        enrollmentService.deleteEnrollment(id)
+    }
 }

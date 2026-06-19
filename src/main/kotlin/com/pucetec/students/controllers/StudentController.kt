@@ -6,24 +6,48 @@ import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/api/students")
-class StudentController(private val studentService: StudentService) {
+class StudentController(
+    val studentService: StudentService
+) {
 
-    @PostMapping
+    @PostMapping("/api/students")
     @ResponseStatus(HttpStatus.CREATED)
-    fun createStudent(@RequestBody request: StudentRequest): StudentResponse = studentService.createStudent(request)
+    fun createStudent(
+        @RequestBody request: StudentRequest
+    ): StudentResponse {
 
-    @GetMapping
-    fun getAllStudents(): List<StudentResponse> = studentService.getAllStudents()
+        return studentService.createStudent(request)
+    }
 
-    @GetMapping("/{id}")
-    fun getStudentById(@PathVariable id: Long): StudentResponse = studentService.getStudentById(id)
+    @GetMapping("/api/students")
+    fun getAllStudents(): List<StudentResponse> {
 
-    @PutMapping("/{id}")
-    fun updateStudent(@PathVariable id: Long, @RequestBody request: StudentRequest): StudentResponse =
-        studentService.updateStudent(id, request)
+        return studentService.getAllStudents()
+    }
 
-    @DeleteMapping("/{id}")
+    @GetMapping("/api/students/{id}")
+    fun getStudentById(
+        @PathVariable id: Long
+    ): StudentResponse {
+
+        return studentService.getStudentById(id)
+    }
+
+    @PutMapping("/api/students/{id}")
+    fun updateStudent(
+        @PathVariable id: Long,
+        @RequestBody request: StudentRequest
+    ): StudentResponse {
+
+        return studentService.updateStudent(id, request)
+    }
+
+    @DeleteMapping("/api/students/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun deleteStudent(@PathVariable id: Long) = studentService.deleteStudent(id)
+    fun deleteStudent(
+        @PathVariable id: Long
+    ) {
+
+        studentService.deleteStudent(id)
+    }
 }

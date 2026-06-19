@@ -25,9 +25,9 @@ class EnrollmentService(
             .orElseThrow { SubjectNotFoundException("Materia con ID ${request.subjectId} no encontrada") }
 
         val enrollment = Enrollment(
-            status = "INSCRITO", // Requisito de estado inicial obligatorio
-            student = student,
-            subject = subject
+            status = "INSCRITO",
+            subject = subject, // Orden correcto según la entidad
+            student = student  // Orden correcto según la entidad
         )
         return enrollmentRepository.save(enrollment).toResponse()
     }
@@ -49,8 +49,8 @@ class EnrollmentService(
             id = existing.id,
             createdAt = existing.createdAt,
             status = request.status,
-            student = existing.student,
-            subject = existing.subject
+            subject = existing.subject, // Orden correcto según la entidad
+            student = existing.student   // Orden correcto según la entidad
         )
         return enrollmentRepository.save(updated).toResponse()
     }

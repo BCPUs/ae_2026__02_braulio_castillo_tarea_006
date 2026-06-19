@@ -6,24 +6,48 @@ import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/api/professors")
-class ProfessorController(private val professorService: ProfessorService) {
+class ProfessorController(
+    val professorService: ProfessorService
+) {
 
-    @PostMapping
+    @PostMapping("/api/professors")
     @ResponseStatus(HttpStatus.CREATED)
-    fun createProfessor(@RequestBody request: ProfessorRequest): ProfessorResponse = professorService.createProfessor(request)
+    fun createProfessor(
+        @RequestBody request: ProfessorRequest
+    ): ProfessorResponse {
 
-    @GetMapping
-    fun getAllProfessors(): List<ProfessorResponse> = professorService.getAllProfessors()
+        return professorService.createProfessor(request)
+    }
 
-    @GetMapping("/{id}")
-    fun getProfessorById(@PathVariable id: Long): ProfessorResponse = professorService.getProfessorById(id)
+    @GetMapping("/api/professors")
+    fun getAllProfessors(): List<ProfessorResponse> {
 
-    @PutMapping("/{id}")
-    fun updateProfessor(@PathVariable id: Long, @RequestBody request: ProfessorRequest): ProfessorResponse =
-        professorService.updateProfessor(id, request)
+        return professorService.getAllProfessors()
+    }
 
-    @DeleteMapping("/{id}")
+    @GetMapping("/api/professors/{id}")
+    fun getProfessorById(
+        @PathVariable id: Long
+    ): ProfessorResponse {
+
+        return professorService.getProfessorById(id)
+    }
+
+    @PutMapping("/api/professors/{id}")
+    fun updateProfessor(
+        @PathVariable id: Long,
+        @RequestBody request: ProfessorRequest
+    ): ProfessorResponse {
+
+        return professorService.updateProfessor(id, request)
+    }
+
+    @DeleteMapping("/api/professors/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun deleteProfessor(@PathVariable id: Long) = professorService.deleteProfessor(id)
+    fun deleteProfessor(
+        @PathVariable id: Long
+    ) {
+
+        professorService.deleteProfessor(id)
+    }
 }
