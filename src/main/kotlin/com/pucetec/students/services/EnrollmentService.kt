@@ -16,7 +16,6 @@ class EnrollmentService(
     private val studentRepository: StudentRepository,
     private val subjectRepository: SubjectRepository
 ) {
-
     fun createEnrollment(request: EnrollmentRequest): EnrollmentResponse {
         val student = studentRepository.findById(request.studentId)
             .orElseThrow { StudentNotFoundException("Estudiante con ID ${request.studentId} no encontrado") }
@@ -31,7 +30,6 @@ class EnrollmentService(
         )
         return enrollmentRepository.save(enrollment).toResponse()
     }
-
     fun getAllEnrollments(): List<EnrollmentResponse> = enrollmentRepository.findAll().map { it.toResponse() }
 
     fun getEnrollmentById(id: Long): EnrollmentResponse {
@@ -39,7 +37,6 @@ class EnrollmentService(
             .orElseThrow { EnrollmentNotFoundException("Inscripción con ID $id no encontrada") }
             .toResponse()
     }
-
     fun updateEnrollmentStatus(id: Long, request: EnrollmentUpdateRequest): EnrollmentResponse {
         require(request.status.isNotBlank()) { "El estado no puede estar en blanco" }
         val existing = enrollmentRepository.findById(id)
@@ -54,7 +51,6 @@ class EnrollmentService(
         )
         return enrollmentRepository.save(updated).toResponse()
     }
-
     fun deleteEnrollment(id: Long) {
         val existing = enrollmentRepository.findById(id)
             .orElseThrow { EnrollmentNotFoundException("Inscripción con ID $id no encontrada") }
